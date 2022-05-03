@@ -174,6 +174,7 @@
             this.btnListarCursos.TabIndex = 14;
             this.btnListarCursos.Text = "Listar";
             this.btnListarCursos.UseVisualStyleBackColor = true;
+            this.btnListarCursos.Click += new System.EventHandler(this.btnListarCursos_Click);
             // 
             // label6
             // 

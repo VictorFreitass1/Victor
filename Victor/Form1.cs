@@ -31,5 +31,22 @@ namespace Victor
                 MessageBox.Show("Falha ao inserir cliente.");
             }
         }
+
+        private void btnListarCursos_Click(object sender, EventArgs e)
+        {
+            dgvCursos.Rows.Clear();
+            List<Curso> listaDeClientes = Curso.Listar();
+            int cont = 0;
+            foreach (Curso cliente in listaDeClientes)
+            {
+                dgvCursos.Rows.Add();
+                dgvCursos.Rows[cont].Cells[0].Value = cliente.crs_codigo.ToString();
+                dgvCursos.Rows[cont].Cells[1].Value = cliente.crs_nome.ToString();
+                dgvCursos.Rows[cont].Cells[2].Value = cliente.crs_categoria.ToString();
+                dgvCursos.Rows[cont].Cells[3].Value = cliente.crs_carga_horaria.ToString();
+                dgvCursos.Rows[cont].Cells[4].Value = cliente.crs_valor;
+                cont++;
+            }
+        }
     }
 }

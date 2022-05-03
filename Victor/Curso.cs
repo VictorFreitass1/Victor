@@ -17,6 +17,12 @@ namespace Victor
         private decimal valor;
         private bool ativo;
         private DateTime data_cadastro;
+        private object p1;
+        private object p2;
+        private object p3;
+        private object p4;
+        private object p5;
+        private object p6;
 
         // Propriedades
         public int crs_codigo { get { return codigo; } set { codigo = value; } }
@@ -52,6 +58,16 @@ namespace Victor
             crs_valor = valor;
             crs_data_cadastro = data_cadastro;
             crs_ativo = ativo;
+        }
+
+        public Curso(object p1, object p2, object p3, object p4, object p5, object p6)
+        {
+            this.p1 = p1;
+            this.p2 = p2;
+            this.p3 = p3;
+            this.p4 = p4;
+            this.p5 = p5;
+            this.p6 = p6;
         }
 
         // Métodos da classe
@@ -90,7 +106,27 @@ namespace Victor
 
             }
             return true;
+        }
 
+        private static List<Curso> Listar()
+        {
+            List<Curso> clientes = new List<Curso>();
+            var cmd = Banco.Abrir();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from cursos  where ativo = 1 order by nome;"; //clientes ativos ordenados por nome
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                clientes.Add(new Curso(
+                    dr.GetInt32(0),
+                    dr.GetString(1),
+                    dr.GetString(2),
+                    dr.GetString(3),
+                    dr.GetDateTime(4),
+                    dr.GetBoolean(5)
+                    ));
+            }
+            return clientes;
         }
     }
 }

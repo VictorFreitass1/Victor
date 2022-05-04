@@ -147,6 +147,7 @@
             this.btnConsultaCursoPorId.TabIndex = 11;
             this.btnConsultaCursoPorId.Text = "Consultar";
             this.btnConsultaCursoPorId.UseVisualStyleBackColor = true;
+            this.btnConsultaCursoPorId.Click += new System.EventHandler(this.btnConsultaCursoPorId_Click);
             // 
             // btnAlterarCurso
             // 
@@ -156,6 +157,7 @@
             this.btnAlterarCurso.TabIndex = 12;
             this.btnAlterarCurso.Text = "Alterar";
             this.btnAlterarCurso.UseVisualStyleBackColor = true;
+            this.btnAlterarCurso.Click += new System.EventHandler(this.btnAlterarCurso_Click);
             // 
             // btnExcluirCurso
             // 
@@ -165,6 +167,7 @@
             this.btnExcluirCurso.TabIndex = 13;
             this.btnExcluirCurso.Text = "Excluir";
             this.btnExcluirCurso.UseVisualStyleBackColor = true;
+            this.btnExcluirCurso.Click += new System.EventHandler(this.btnExcluirCurso_Click);
             // 
             // btnListarCursos
             // 

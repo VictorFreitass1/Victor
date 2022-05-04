@@ -19,7 +19,7 @@ namespace Victor
 
         private void btnInserirCurso_Click(object sender, EventArgs e)
         {
-            Curso c = new Curso(txtCodigoCurso.Text, txtNomeCurso.Text, txtCategoriaCurso, txtBuscaCursoPorDescricao);
+            Curso c = new Curso(txtNomeCurso.Text, txtCategoriaCurso.Text, Convert.ToInt32(txtCargaHorariaCurso.Text), Convert.ToDouble(txtValorCurso.Text));
             c.Incluir();
             if (c.crs_codigo > 0)
             {
@@ -35,18 +35,48 @@ namespace Victor
         private void btnListarCursos_Click(object sender, EventArgs e)
         {
             dgvCursos.Rows.Clear();
-            List<Curso> listaDeClientes = Curso.Listar();
+            List<Curso> listaDeCursos = Curso.Listar();
             int cont = 0;
-            foreach (Curso cliente in listaDeClientes)
+            foreach (Curso curso in listaDeCursos)
             {
                 dgvCursos.Rows.Add();
-                dgvCursos.Rows[cont].Cells[0].Value = cliente.crs_codigo.ToString();
-                dgvCursos.Rows[cont].Cells[1].Value = cliente.crs_nome.ToString();
-                dgvCursos.Rows[cont].Cells[2].Value = cliente.crs_categoria.ToString();
-                dgvCursos.Rows[cont].Cells[3].Value = cliente.crs_carga_horaria.ToString();
-                dgvCursos.Rows[cont].Cells[4].Value = cliente.crs_valor;
+                dgvCursos.Rows[cont].Cells[0].Value = curso.crs_codigo.ToString();
+                dgvCursos.Rows[cont].Cells[1].Value = curso.crs_nome.ToString();
+                dgvCursos.Rows[cont].Cells[2].Value = curso.crs_categoria.ToString();
+                dgvCursos.Rows[cont].Cells[3].Value = curso.crs_carga_horaria.ToString();
+                dgvCursos.Rows[cont].Cells[4].Value = curso.crs_valor;
                 cont++;
             }
+        }
+
+        private void btnConsultaCursoPorId_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAlterarCurso_Click(object sender, EventArgs e)
+        {
+            Curso curso = new Curso();
+            if (curso.Alterar())
+            {
+                MessageBox.Show("Cliente alterado com Sucesso!");
+            }
+            else
+            {
+                MessageBox.Show("Falha na alteração do Cliente!");
+                btnConsultaCursoPorId.Text = "...";
+                txtCodigoCurso.Text = "";
+                txtBuscaCursoPorDescricao.Text = "";
+                txtCargaHorariaCurso.Text = "";
+                txtCategoriaCurso.Text = "";
+                txtCodigoCurso.ReadOnly = true;
+                btnAlterarCurso.Enabled = false;
+            }
+    }
+
+        private void btnExcluirCurso_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

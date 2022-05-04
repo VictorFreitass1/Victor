@@ -14,7 +14,7 @@ namespace Victor
         private string nome;
         private string categoria;
         private int carga_horaria;
-        private decimal valor;
+        private double valor;
         private bool ativo;
         private DateTime data_cadastro;
         private object p1;
@@ -29,7 +29,7 @@ namespace Victor
         public string crs_nome { get { return nome; } set { nome = value; } }
         public string crs_categoria { get { return categoria; } set { categoria = value; } }
         public int crs_carga_horaria { get { return carga_horaria; } set { carga_horaria = value; } }
-        public decimal crs_valor { get { return valor; } set { valor = value; } }
+        public double crs_valor { get { return valor; } set { valor = value; } }
         public bool crs_ativo { get { return ativo; } set { ativo = value; } }
         public DateTime crs_data_cadastro { get { return data_cadastro; } set { data_cadastro = value; } }
  
@@ -40,16 +40,15 @@ namespace Victor
 
         }
 
-        public Curso (string nome, string categoria, int carga_horaria, decimal valor, DateTime data_cadastro)
+        public Curso (string nome, string categoria, int carga_horaria, double valor)
         {
             crs_nome = nome;
             crs_categoria = categoria;
             crs_carga_horaria = carga_horaria;
             crs_valor = valor;
-            crs_data_cadastro = data_cadastro;
         }
 
-        public Curso(int codigo, string nome, string categoria, int carga_horaria, decimal valor, DateTime data_cadastro, bool ativo)
+        public Curso(int codigo, string nome, string categoria, int carga_horaria, double valor, DateTime data_cadastro, bool ativo)
         {
             crs_codigo = codigo;
             crs_nome = nome;
@@ -75,14 +74,14 @@ namespace Victor
         {
             var cmd = Banco.Abrir();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.CommandText = "SP_NovoCurso";
+            cmd.CommandText = "sp_novocurso";
             cmd.Parameters.AddWithValue("_crs_nome", nome);
             cmd.Parameters.AddWithValue("_crs_categoria", categoria);
             cmd.Parameters.AddWithValue("_crs_valor", valor);
             cmd.Parameters.AddWithValue("_crs_data_cadastro", data_cadastro);
             cmd.Connection.Close();     
         }
-        public bool Atualizar()
+        public bool Alterar()
         {
             bool resultado = false;
             try
@@ -90,13 +89,12 @@ namespace Victor
                 var cmd = Banco.Abrir();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 // recebe o nome da procedure
-                cmd.CommandText = "sp_cliente_alterar";
+                cmd.CommandText = "sp_atualizacurso";
                 // adiciona os parâmetros da procedure - lá do Mysql
                 // cmd.Parameters.Add("_id", MysqlDbType.Int32).Value = _id;
                 cmd.Parameters.AddWithValue("_crs_nome", nome);
                 cmd.Parameters.AddWithValue("_crs_categoria", categoria);
                 cmd.Parameters.AddWithValue("_crs_valor", valor);
-                cmd.Parameters.AddWithValue("_crs_data_cadastro", data_cadastro);
                 cmd.ExecuteNonQuery();
                 resultado = true;
                 cmd.Connection.Close();
@@ -108,7 +106,7 @@ namespace Victor
             return true;
         }
 
-        private static List<Curso> Listar()
+        public static List<Curso> Listar()
         {
             List<Curso> clientes = new List<Curso>();
             var cmd = Banco.Abrir();
